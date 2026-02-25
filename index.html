@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>婚活タイプ診断 | あなたの婚活スタイルを心理学的に分析</title>
+<meta name="description" content="愛着理論・コミュニケーション心理学に基づく20の質問で、あなたの婚活タイプを診断。統計データに基づいた具体的なアドバイスで、結婚への道筋が見えてきます。">
+<meta property="og:title" content="婚活タイプ診断 | あなたの婚活スタイルを心理学的に分析">
+<meta property="og:description" content="愛着理論に基づく20問の診断で、あなたの婚活タイプと成功への道筋がわかります。">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="婚活タイプ診断 | あなたの婚活スタイルを心理学的に分析">
+<meta name="twitter:description" content="愛着理論に基づく20問の診断で、あなたの婚活タイプと成功への道筋がわかります。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#E8927C;--primary-dark:#D47A64;--primary-light:#F2B5A6;
+  --secondary:#7CADE8;--secondary-dark:#5A8FD4;
+  --accent:#F5C842;
+  --bg:#FFF8F5;--bg-card:#FFFFFF;--bg-section:#F0ECE8;
+  --text:#3D2C2C;--text-light:#7A6B6B;--text-white:#FFFFFF;
+  --success:#6BBF8A;--border:#E8DDD8;
+  --serif:'Noto Serif JP',serif;--sans:'Noto Sans JP',sans-serif;
+  --radius:12px;--radius-lg:16px;
+  --shadow:0 2px 12px rgba(61,44,44,.08);
+  --shadow-lg:0 4px 24px rgba(61,44,44,.12);
+  --transition:.3s ease;--max-w:640px
+}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--text);background:var(--bg);line-height:1.8;min-height:100vh;overflow-x:hidden}
+
+/* Screens */
+.screen{display:none;min-height:100vh;padding-bottom:40px}
+.screen.active{display:block}
+
+/* Landing */
+#landing{background:linear-gradient(135deg,#FFF8F5 0%,#FFE8E0 50%,#E8D5F5 100%);position:relative;overflow:hidden}
+#landing.active{display:flex;align-items:center;justify-content:center}
+.landing-content{text-align:center;padding:40px 20px;max-width:var(--max-w)}
+.landing-icon{font-size:64px;margin-bottom:16px;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.landing-title{font-family:var(--serif);font-size:2rem;font-weight:700;line-height:1.4;margin-bottom:16px}
+.landing-subtitle{font-size:1rem;color:var(--text-light);margin-bottom:32px;line-height:1.8}
+.landing-badge{display:inline-block;background:rgba(255,255,255,.8);border:1px solid var(--border);border-radius:20px;padding:8px 20px;font-size:.8rem;color:var(--text-light);margin-bottom:32px;backdrop-filter:blur(4px)}
+.btn-primary{display:inline-block;background:var(--primary);color:var(--text-white);font-family:var(--sans);font-size:1.1rem;font-weight:700;padding:16px 48px;border:none;border-radius:50px;cursor:pointer;transition:all var(--transition);box-shadow:0 4px 16px rgba(232,146,124,.4);text-decoration:none}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 6px 20px rgba(232,146,124,.5)}
+.btn-primary:active{transform:translateY(0)}
+.landing-note{margin-top:24px;font-size:.8rem;color:var(--text-light)}
+
+/* Progress */
+.progress-area{position:sticky;top:0;background:var(--bg);padding:16px 20px 12px;z-index:10;border-bottom:1px solid var(--border)}
+.progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progress-text{font-size:.85rem;color:var(--text-light);font-weight:500}
+.progress-back{background:none;border:none;color:var(--text-light);font-size:.85rem;cursor:pointer;padding:4px 8px;font-family:var(--sans);transition:color var(--transition)}
+.progress-back:hover{color:var(--primary)}
+.progress-back:disabled{opacity:.3;cursor:default}
+.progress-bar{width:100%;height:6px;background:var(--bg-section);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:3px;transition:width .4s ease}
+
+/* Quiz */
+#quiz{background:var(--bg)}
+.quiz-body{max-width:var(--max-w);margin:0 auto;padding:24px 20px 40px}
+.question-container{animation:fadeSlideIn .4s ease}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+.question-number{font-size:.85rem;color:var(--primary);font-weight:700;margin-bottom:8px}
+.question-text{font-family:var(--serif);font-size:1.25rem;font-weight:700;line-height:1.6;margin-bottom:24px}
+.options{display:flex;flex-direction:column;gap:12px}
+.option-btn{display:block;width:100%;text-align:left;background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius);padding:16px 20px;font-family:var(--sans);font-size:.95rem;line-height:1.6;color:var(--text);cursor:pointer;transition:all var(--transition);box-shadow:var(--shadow)}
+.option-btn:hover{border-color:var(--primary);background:#FFF0ED}
+.option-btn.selected{border-color:var(--primary);background:#FFF0ED;box-shadow:0 0 0 2px var(--primary-light)}
+
+/* Loading */
+#loading{background:linear-gradient(135deg,#FFF8F5 0%,#FFE8E0 50%,#E8D5F5 100%)}
+#loading.active{display:flex;align-items:center;justify-content:center}
+.loading-content{text-align:center;padding:40px 20px}
+.loading-spinner{width:60px;height:60px;border:4px solid var(--bg-section);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 24px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-family:var(--serif);font-size:1.1rem;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* Result */
+#result{background:var(--bg)}
+.result-hero{background:linear-gradient(135deg,#FFF8F5 0%,#FFE8E0 50%,#E8D5F5 100%);text-align:center;padding:48px 20px 40px}
+.result-icon{font-size:56px;margin-bottom:12px}
+.result-label{font-size:.85rem;color:var(--text-light);margin-bottom:4px}
+.result-type-name{font-family:var(--serif);font-size:1.8rem;font-weight:700;margin-bottom:16px;line-height:1.4}
+.result-summary{font-size:.95rem;line-height:1.8;max-width:500px;margin:0 auto}
+
+/* Axis Chart */
+.axis-chart{max-width:var(--max-w);margin:-20px auto 0;padding:0 20px}
+.axis-chart-inner{background:var(--bg-card);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-lg)}
+.axis-item{margin-bottom:20px}
+.axis-item:last-child{margin-bottom:0}
+.axis-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.axis-name{font-weight:700;font-size:.9rem}
+.axis-score{font-weight:700;font-size:.9rem;color:var(--primary)}
+.axis-bar{width:100%;height:10px;background:var(--bg-section);border-radius:5px;overflow:hidden}
+.axis-fill{height:100%;border-radius:5px;transition:width 1s ease}
+.axis-fill.openness{background:linear-gradient(90deg,var(--primary-light),var(--primary))}
+.axis-fill.agency{background:linear-gradient(90deg,#A6D1F5,var(--secondary))}
+.axis-desc{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-light);margin-top:4px}
+
+/* Result Sections */
+.result-sections{max-width:var(--max-w);margin:0 auto;padding:24px 20px}
+.result-section{background:var(--bg-card);border-radius:var(--radius-lg);padding:24px;margin-bottom:16px;box-shadow:var(--shadow)}
+.section-title{font-family:var(--serif);font-size:1.1rem;font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--bg-section)}
+.section-title-icon{margin-right:8px}
+.result-list{list-style:none;padding:0}
+.result-list li{padding:8px 0 8px 24px;position:relative;line-height:1.7;font-size:.95rem}
+.result-list li::before{content:'';position:absolute;left:0;top:16px;width:8px;height:8px;border-radius:50%}
+.result-list.strengths li::before{background:var(--success)}
+.result-list.improvements li::before{background:var(--accent)}
+.advice-list{list-style:none;padding:0;counter-reset:advice}
+.advice-list li{padding:12px 0 12px 36px;position:relative;line-height:1.7;font-size:.95rem;counter-increment:advice}
+.advice-list li::before{content:counter(advice);position:absolute;left:0;top:12px;width:24px;height:24px;background:var(--primary);color:var(--text-white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700}
+.stat-box{background:var(--bg-section);border-radius:var(--radius);padding:16px;margin-bottom:12px;font-size:.9rem;line-height:1.7}
+.stat-box:last-child{margin-bottom:0}
+.stat-number{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--primary);display:block;margin-bottom:4px}
+.stat-source{font-size:.75rem;color:var(--text-light);margin-top:4px;display:block}
+
+/* Share */
+.share-section{text-align:center;padding:32px 20px;max-width:var(--max-w);margin:0 auto}
+.share-title{font-family:var(--serif);font-size:1.1rem;margin-bottom:16px}
+.share-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.share-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;font-family:var(--sans);font-size:.9rem;font-weight:700;border:none;cursor:pointer;transition:all var(--transition);text-decoration:none}
+.share-btn:hover{transform:translateY(-2px)}
+.share-btn.twitter{background:#000000;color:white}
+.share-btn.line{background:#06C755;color:white}
+.share-btn.copy{background:var(--bg-section);color:var(--text);border:1px solid var(--border)}
+.btn-retry{display:inline-block;background:transparent;color:var(--primary);font-family:var(--sans);font-size:1rem;font-weight:700;padding:14px 40px;border:2px solid var(--primary);border-radius:50px;cursor:pointer;transition:all var(--transition)}
+.btn-retry:hover{background:var(--primary);color:var(--text-white)}
+
+/* Sources */
+.sources{max-width:var(--max-w);margin:0 auto;padding:24px 20px 48px;border-top:1px solid var(--border)}
+.sources-title{font-size:.8rem;font-weight:700;color:var(--text-light);margin-bottom:8px}
+.sources-list{list-style:none;padding:0}
+.sources-list li{font-size:.75rem;color:var(--text-light);line-height:1.6;margin-bottom:4px}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--text);color:var(--text-white);padding:12px 24px;border-radius:50px;font-size:.85rem;opacity:0;transition:all .3s ease;z-index:100;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(min-width:768px){
+  .landing-title{font-size:2.5rem}
+  .question-text{font-size:1.4rem}
+  .result-type-name{font-size:2.2rem}
+  .options{gap:16px}
+  .option-btn{padding:20px 24px;font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Landing -->
+<div id="landing" class="screen active">
+  <div class="landing-content">
+    <div class="landing-icon">💍</div>
+    <h1 class="landing-title">あなたの<br>婚活タイプ診断</h1>
+    <p class="landing-subtitle">心理学の愛着理論に基づく20の質問で、<br>あなたの婚活スタイルを分析します。<br>自分の強みと改善ポイントを知り、<br>結婚への具体的な一歩を見つけましょう。</p>
+    <div class="landing-badge">📊 愛着理論・婚活統計データに基づいて設計</div>
+    <br>
+    <button class="btn-primary" id="startBtn">診断をはじめる（無料・約5分）</button>
+    <p class="landing-note">※ 個人情報の入力は不要です</p>
+  </div>
+</div>
+
+<!-- Quiz -->
+<div id="quiz" class="screen">
+  <div class="progress-area">
+    <div class="progress-header">
+      <button class="progress-back" id="backBtn" disabled>← 戻る</button>
+      <span class="progress-text" id="progressText">1 / 20</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:5%"></div>
+    </div>
+  </div>
+  <div class="quiz-body">
+    <div id="questionContainer"></div>
+  </div>
+</div>
+
+<!-- Loading -->
+<div id="loading" class="screen">
+  <div class="loading-content">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loadingText">あなたの回答を分析中...</div>
+  </div>
+</div>
+
+<!-- Result -->
+<div id="result" class="screen">
+  <div class="result-hero">
+    <div class="result-icon" id="resultIcon"></div>
+    <div class="result-label">あなたの婚活タイプは...</div>
+    <h2 class="result-type-name" id="resultTypeName"></h2>
+    <p class="result-summary" id="resultSummary"></p>
+  </div>
+  <div class="axis-chart">
+    <div class="axis-chart-inner">
+      <div class="axis-item">
+        <div class="axis-label">
+          <span class="axis-name">💬 開放性（自己開示力）</span>
+          <span class="axis-score" id="opennessScore"></span>
+        </div>
+        <div class="axis-bar"><div class="axis-fill openness" id="opennessFill" style="width:0%"></div></div>
+        <div class="axis-desc"><span>控えめ</span><span>オープン</span></div>
+      </div>
+      <div class="axis-item">
+        <div class="axis-label">
+          <span class="axis-name">🎯 主体性（行動力）</span>
+          <span class="axis-score" id="agencyScore"></span>
+        </div>
+        <div class="axis-bar"><div class="axis-fill agency" id="agencyFill" style="width:0%"></div></div>
+        <div class="axis-desc"><span>受動的</span><span>積極的</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="result-sections" id="resultSections"></div>
+  <div class="share-section">
+    <div class="share-title">結果をシェアする</div>
+    <div class="share-buttons">
+      <button class="share-btn twitter" id="shareTwitter">𝕏 ポスト</button>
+      <button class="share-btn line" id="shareLine">LINE</button>
+      <button class="share-btn copy" id="shareCopy">🔗 リンクコピー</button>
+    </div>
+    <button class="btn-retry" id="retryBtn">もう一度診断する</button>
+  </div>
+  <div class="sources">
+    <div class="sources-title">参考文献・データ出典</div>
+    <ul class="sources-list">
+      <li>• Bartholomew, K. &amp; Horowitz, L.M. (1991). Attachment styles among young adults. Journal of Personality and Social Psychology, 61(2), 226-244.</li>
+      <li>• 国立社会保障・人口問題研究所「第16回出生動向基本調査」(2021)</li>
+      <li>• リクルートブライダル総研「婚活実態調査2024」</li>
+      <li>• 厚生労働省「人口動態統計」令和6年</li>
+      <li>• 総務省「国勢調査」(2020) 50歳時未婚割合</li>
+      <li>• 内閣府・こども家庭庁「結婚・家族形成に関する意識調査」</li>
+    </ul>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ========== QUESTION DATA ==========
+var questions = [
+  {
+    id:1, text:'初めて会った人と話すとき、あなたはどのような傾向がありますか？',
+    axes:['openness'],
+    options:[
+      {text:'自分のことをオープンに話し、相手にも積極的に質問する', scores:{openness:4}},
+      {text:'共通の話題が見つかれば盛り上がるが、なければ様子を見る', scores:{openness:3}},
+      {text:'相手の話を聞くのは好きだが、自分のことはあまり話さない', scores:{openness:2}},
+      {text:'緊張してしまい、何を話せばいいかわからなくなる', scores:{openness:1}}
+    ]
+  },
+  {
+    id:2, text:'婚活について、あなたの考えに最も近いものは？',
+    axes:['agency'],
+    options:[
+      {text:'婚活アプリや相談所など、複数のサービスを積極的に活用している', scores:{agency:4}},
+      {text:'自然な出会いを大切にしつつ、機会があれば婚活イベントにも参加する', scores:{agency:3}},
+      {text:'周囲からの紹介やきっかけを待っている', scores:{agency:2}},
+      {text:'婚活という言葉に抵抗があり、自然な縁を信じたい', scores:{agency:1}}
+    ]
+  },
+  {
+    id:3, text:'自分の弱みや欠点について、どう思いますか？',
+    axes:['openness'],
+    options:[
+      {text:'信頼できる人には率直に話せる。弱みを見せることは強さだと思う', scores:{openness:4}},
+      {text:'弱みを改善しようと努力しているが、人に話すのは恥ずかしい', scores:{openness:3}},
+      {text:'自覚はしているが、人には見せないようにしている', scores:{openness:2}},
+      {text:'あまり深く考えたことがない', scores:{openness:1}}
+    ]
+  },
+  {
+    id:4, text:'デートの計画について、あなたのスタイルに近いものは？',
+    axes:['agency'],
+    options:[
+      {text:'事前にリサーチして、複数のプランを用意する', scores:{agency:4}},
+      {text:'大まかな方向性だけ決めて、あとは流れに任せる', scores:{agency:3}},
+      {text:'相手の希望を聞いて、それに合わせる', scores:{agency:2}},
+      {text:'お互いノープランで会い、その場の気分で決める', scores:{agency:1}}
+    ]
+  },
+  {
+    id:5, text:'友人から恋愛の悩みを相談されたら、あなたはどうしますか？',
+    axes:['openness'],
+    options:[
+      {text:'自分の経験も交えながら、共感して一緒に考える', scores:{openness:4}},
+      {text:'とにかく話を聞いて、相手の気持ちに寄り添う', scores:{openness:3}},
+      {text:'客観的なアドバイスを中心に伝える', scores:{openness:2}},
+      {text:'正直、恋愛相談は苦手でうまく答えられない', scores:{openness:1}}
+    ]
+  },
+  {
+    id:6, text:'5年後の自分について、どのくらい具体的にイメージしていますか？',
+    axes:['agency'],
+    options:[
+      {text:'仕事・家庭・ライフスタイルまで具体的な計画がある', scores:{agency:4}},
+      {text:'なんとなくの方向性はあるが、細かくは決めていない', scores:{agency:3}},
+      {text:'考えなきゃいけないとは思っているが、まだ漠然としている', scores:{agency:2}},
+      {text:'あまり先のことは考えず、今を大切にしたい', scores:{agency:1}}
+    ]
+  },
+  {
+    id:7, text:'気になる相手とのメッセージのやり取りで、あなたに近いのは？',
+    axes:['openness'],
+    options:[
+      {text:'自分の気持ちや日常を積極的に共有し、会話を広げる', scores:{openness:4}},
+      {text:'相手のペースに合わせて、適度にやり取りする', scores:{openness:3}},
+      {text:'用件がないとメッセージを送るのが苦手', scores:{openness:2}},
+      {text:'既読しても返信を考えすぎて遅くなりがち', scores:{openness:1}}
+    ]
+  },
+  {
+    id:8, text:'新しい出会いの場（イベント・アプリ等）への姿勢は？',
+    axes:['agency'],
+    options:[
+      {text:'常にアンテナを張り、面白そうなものはすぐ参加する', scores:{agency:4}},
+      {text:'気になるものがあれば参加するが、自分から探すことは少ない', scores:{agency:3}},
+      {text:'友人に誘われれば参加するが、一人では行かない', scores:{agency:2}},
+      {text:'出会いの場に行くこと自体にハードルを感じる', scores:{agency:1}}
+    ]
+  },
+  {
+    id:9, text:'相手に好意を伝えることについて、どう思いますか？',
+    axes:['openness'],
+    options:[
+      {text:'気持ちは素直に伝えるべき。好意は言葉にして届けたい', scores:{openness:4}},
+      {text:'態度や行動で示すことが多いが、ここぞという時は言葉にする', scores:{openness:3}},
+      {text:'好意を伝えるのは恥ずかしく、察してほしいと思う', scores:{openness:2}},
+      {text:'告白や好意の表現は非常に苦手で、できれば避けたい', scores:{openness:1}}
+    ]
+  },
+  {
+    id:10, text:'婚活のために自分を変えることについて、どう思いますか？',
+    axes:['agency'],
+    options:[
+      {text:'積極的に自己改善に取り組んでいる。変われる自分が好き', scores:{agency:4}},
+      {text:'必要なら変える努力はするが、無理はしたくない', scores:{agency:3}},
+      {text:'ありのままの自分を受け入れてくれる人を探したい', scores:{agency:2}},
+      {text:'何を変えればいいのかわからない', scores:{agency:1}}
+    ]
+  },
+  {
+    id:11, text:'結婚相手に一番求めるものは？',
+    axes:['openness','agency'],
+    options:[
+      {text:'心を開いて何でも話し合える関係', scores:{openness:4,agency:2}},
+      {text:'お互いの目標を応援し合えるパートナーシップ', scores:{openness:3,agency:4}},
+      {text:'一緒にいて楽しい、フィーリングの合う人', scores:{openness:3,agency:1}},
+      {text:'経済力や社会的安定を含めた総合力', scores:{openness:1,agency:3}}
+    ]
+  },
+  {
+    id:12, text:'お断りされたとき、あなたはどうしますか？',
+    axes:['agency'],
+    options:[
+      {text:'落ち込むが、原因を分析してすぐ次に活かす', scores:{agency:4}},
+      {text:'少し凹むが、気持ちを切り替えて前に進む', scores:{agency:3}},
+      {text:'しばらく立ち直れず、婚活を休む期間が必要', scores:{agency:2}},
+      {text:'深く傷つき、また断られるのが怖くて動けなくなる', scores:{agency:1}}
+    ]
+  },
+  {
+    id:13, text:'パートナーと意見が合わないとき、あなたはどうする傾向がありますか？',
+    axes:['openness','agency'],
+    options:[
+      {text:'率直に自分の意見を伝え、お互いの考えを話し合う', scores:{openness:4,agency:4}},
+      {text:'相手の意見を尊重して、自分が折れることが多い', scores:{openness:3,agency:1}},
+      {text:'時間を置いて冷静になってから話す', scores:{openness:2,agency:3}},
+      {text:'衝突を避けて、なんとなくやり過ごす', scores:{openness:1,agency:1}}
+    ]
+  },
+  {
+    id:14, text:'婚活に関する情報収集はどのくらいしていますか？',
+    axes:['agency'],
+    options:[
+      {text:'成婚者の体験談、統計データ、専門家のアドバイスなど幅広く調べている', scores:{agency:4}},
+      {text:'気になったときにネットで検索する程度', scores:{agency:3}},
+      {text:'SNSで流れてくる情報を見る程度', scores:{agency:2}},
+      {text:'ほとんど情報収集はしていない', scores:{agency:1}}
+    ]
+  },
+  {
+    id:15, text:'過去の恋愛経験について、あなたに近いのは？',
+    axes:['openness'],
+    options:[
+      {text:'うまくいったことも失敗も含め、オープンに振り返り学びにしている', scores:{openness:4}},
+      {text:'自分の中では整理しているが、人には話さない', scores:{openness:3}},
+      {text:'あまり振り返りたくない。過去は過去として区切りたい', scores:{openness:2}},
+      {text:'恋愛経験が少なく、振り返るエピソードがあまりない', scores:{openness:1}}
+    ]
+  },
+  {
+    id:16, text:'理想の相手像と実際の出会いにギャップがあるとき、どうしますか？',
+    axes:['agency'],
+    options:[
+      {text:'理想を具体的に見直し、優先順位を再設定する', scores:{agency:4}},
+      {text:'条件を少し緩めて、新しい可能性を探ってみる', scores:{agency:3}},
+      {text:'理想は変えたくないが、出会いの場を変えてみる', scores:{agency:2}},
+      {text:'理想の人が現れるまで待ちたい', scores:{agency:1}}
+    ]
+  },
+  {
+    id:17, text:'結婚後の夫婦関係のイメージに最も近いものは？',
+    axes:['openness','agency'],
+    options:[
+      {text:'何でも話し合い、一緒に成長していくパートナーシップ', scores:{openness:4,agency:4}},
+      {text:'笑いが絶えない、友達のような明るい家庭', scores:{openness:4,agency:2}},
+      {text:'お互いの時間を尊重しつつ、穏やかに支え合う関係', scores:{openness:2,agency:3}},
+      {text:'役割分担を明確にして、安定した家庭を築く', scores:{openness:1,agency:3}}
+    ]
+  },
+  {
+    id:18, text:'婚活に使う時間について、あなたに近いのは？',
+    axes:['agency'],
+    options:[
+      {text:'週に数時間は婚活のための時間を確保している', scores:{agency:4}},
+      {text:'空いた時間にアプリをチェックする程度', scores:{agency:3}},
+      {text:'特に時間を決めていないが、たまに思い出して行動する', scores:{agency:2}},
+      {text:'日常が忙しく、婚活に割く時間がほとんどない', scores:{agency:1}}
+    ]
+  },
+  {
+    id:19, text:'パートナーへの感謝や愛情を表現することについて、あなたに近いのは？',
+    axes:['openness'],
+    options:[
+      {text:'「ありがとう」「好き」を日常的に言葉で伝えたい', scores:{openness:4}},
+      {text:'特別な場面では伝えるが、日常的にはあまり言わない', scores:{openness:3}},
+      {text:'言葉より態度や行動で示すタイプ', scores:{openness:2}},
+      {text:'愛情表現は苦手で、つい照れてしまう', scores:{openness:1}}
+    ]
+  },
+  {
+    id:20, text:'今の自分の婚活状態を一言で表すと？',
+    axes:['openness','agency'],
+    options:[
+      {text:'全力疾走中。自分を磨きながら積極的に出会いを求めている', scores:{openness:4,agency:4}},
+      {text:'前向きに頑張っているが、もう少し効率を上げたい', scores:{openness:3,agency:3}},
+      {text:'気持ちはあるが、なかなか行動に移せていない', scores:{openness:2,agency:2}},
+      {text:'漠然と「結婚したい」と思っているが、具体的な行動はしていない', scores:{openness:1,agency:1}}
+    ]
+  }
+];
+
+// ========== RESULT TYPES ==========
+var resultTypes = {
+  sun_navigator: {
+    icon:'☀️', name:'太陽のナビゲーター',
+    summary:'自分の気持ちを素直に表現でき、婚活にも戦略的に取り組める最もバランスの取れたタイプです。自己開示力とコミュニケーション力が高く、計画的に行動できるあなたは、婚活の場で好印象を与えやすい存在です。',
+    strengths:[
+      '初対面でも自然体で好印象を与えられる',
+      '複数の婚活手段を使いこなし、効率的に活動できる',
+      '自分の価値観を明確に伝え、相手とのすり合わせが得意'
+    ],
+    improvements:[
+      '相手に求める基準が高くなりがちで、「理想の人がいない」と感じやすい',
+      '効率を重視しすぎて、関係を深める前に判断してしまうことがある',
+      '自分の魅力を自覚しているがゆえに、謙虚さを忘れることも'
+    ],
+    advice:[
+      '条件リストの上位3つ以外は柔軟に考えてみましょう。人の魅力は条件表には現れません。',
+      '「3回会ってから判断する」ルールを設けると、意外な相性の良さに気づけます。',
+      '相手の話を「聞く」時間を意識的に増やしましょう。あなたの発信力に受容力が加われば最強です。',
+      '「この人を幸せにしたいか」という視点でも相手を見てみてください。'
+    ],
+    stats:[
+      {number:'15.3%', text:'2023年に結婚した人のうち、婚活サービスを通じて結婚した割合。あなたのように積極的に活動する人ほど、この恩恵を受けやすいです。', source:'リクルートブライダル総研「婚活実態調査2024」'},
+      {number:'71.5%', text:'婚活サービスで出会ったカップルの恋人満足度。戦略的な出会いは、感覚だけの出会い（65.5%）より満足度が高い傾向にあります。', source:'リクルートブライダル総研「婚活実態調査2024」'}
+    ]
+  },
+  warm_connector: {
+    icon:'🌈', name:'あたたかい架け橋タイプ',
+    summary:'人当たりがよく、相手の話に共感できる力を持ちながら、婚活にも前向きに取り組めるタイプです。バランスが取れている反面、「いい人」で終わりがちな傾向も。自分ならではの個性を意識的にアピールすることが鍵です。',
+    strengths:[
+      '安心感を与えるコミュニケーションで、相手がリラックスできる',
+      '柔軟に相手に合わせながらも、自分の意見も持っている',
+      '婚活への抵抗感が少なく、自然体で活動できる'
+    ],
+    improvements:[
+      '「いい人」で終わりがち。決め手となる個性のアピールが必要',
+      '優しさゆえに決断のタイミングが遅れることがある',
+      '相手に合わせすぎて、自分の本当の希望を見失うことも'
+    ],
+    advice:[
+      '自分が「一番情熱を持てること」を1つ決めて、プロフィールで前面に出しましょう。',
+      '3回目のデートまでに「この人と進みたいか」を明確にする習慣をつけましょう。',
+      '相手への好意は早めに言葉で伝えましょう。「察してほしい」は伝わりにくいです。',
+      '自分の「ここだけは譲れない条件」を3つに絞って明確にしておきましょう。'
+    ],
+    stats:[
+      {number:'43.3% / 48.1%', text:'未婚者が独身でいる最大の理由は「適当な相手にめぐりあわない」（男性43.3%、女性48.1%）。あなたの場合、出会いの質は高いはず。「決める力」が次のステップです。', source:'国立社会保障・人口問題研究所「第16回出生動向基本調査」(2021)'},
+      {number:'約9ヶ月', text:'結婚相談所IBJにおける成婚者の在籍期間の中央値。交際期間は約4ヶ月。決断力がある人ほど短期間で成婚に至っています。', source:'IBJ「成婚白書2024年度版」'}
+    ]
+  },
+  passion_challenger: {
+    icon:'🔥', name:'情熱のチャレンジャー',
+    summary:'感情豊かで人と深くつながることを大切にするタイプ。恋愛に対して真剣で一途ですが、婚活を「計画的に進める」ことに抵抗を感じています。自然な恋愛の延長で結婚したいと願うロマンチストです。',
+    strengths:[
+      '深い感情的なつながりを築ける。相手に「本気」が伝わりやすい',
+      '一途で誠実な姿勢が、相手に安心感を与える',
+      '共感力が高く、相手の感情に寄り添える'
+    ],
+    improvements:[
+      '「運命の出会い」を待ちすぎて、行動量が不足しがち',
+      '感情に振り回されやすく、一人の相手に執着してしまうことがある',
+      '婚活を「活動」として捉えることに心理的抵抗がある'
+    ],
+    advice:[
+      '「婚活」ではなく「新しい人との出会いの場を増やす」と捉え直しましょう。',
+      '月に2回は新しい人と会う目標を設定してみてください。量は質を生みます。',
+      '友人の紹介やイベント参加など、自然な出会いの延長線上にある方法から始めましょう。',
+      '一人の相手にこだわりすぎず、同時に複数の可能性を検討する練習をしましょう。'
+    ],
+    stats:[
+      {number:'約7人に1人', text:'婚活サービスを通じて結婚した人の割合（15.3%）。もはや婚活は特別なことではなく、出会いの一つの形として社会に定着しています。', source:'リクルートブライダル総研「婚活実態調査2024」'},
+      {number:'26.3%', text:'結婚意向のある独身者のうち、婚活サービスの利用経験がある割合。4人に1人以上が婚活サービスを経験しています。', source:'リクルートブライダル総研「婚活実態調査2024」'}
+    ]
+  },
+  gentle_romantic: {
+    icon:'🌙', name:'やさしいロマンチスト',
+    summary:'人の気持ちに敏感で優しさにあふれるタイプ。穏やかな雰囲気で相手を包み込む力がありますが、婚活に対して受動的になりやすい傾向があります。「いつか素敵な出会いがある」という漠然とした期待を具体的な行動に変えることが大切です。',
+    strengths:[
+      '高い共感力で相手の気持ちを理解できる',
+      '穏やかで居心地のよい雰囲気を自然に作れる',
+      '長期的な関係を大切にでき、パートナーに安心感を与えられる'
+    ],
+    improvements:[
+      '自分から行動を起こすことに苦手意識がある',
+      '理想と現実のギャップに気づきにくい',
+      '「相手から選ばれる」ことを待つ姿勢が中心になりがち'
+    ],
+    advice:[
+      'まず「自分がどんな結婚生活を送りたいか」を具体的に書き出しましょう。理想を可視化することが第一歩です。',
+      '週に1つ、小さな行動（プロフィール写真の更新、イベント検索など）を習慣にしましょう。',
+      '信頼できる友人に「婚活を応援してほしい」と伝えましょう。周囲のサポートは大きな力になります。',
+      '「完璧な準備ができてから」ではなく、「60%の準備で動く」を心がけましょう。'
+    ],
+    stats:[
+      {number:'31.1歳 / 29.8歳', text:'平均初婚年齢は夫31.1歳、妻29.8歳。ただし最頻値は夫27歳、妻26歳で、結婚する人の多くは平均より若い年齢で結婚しています。', source:'厚生労働省「人口動態統計」令和6年'},
+      {number:'81.4% / 84.3%', text:'18〜34歳の未婚者のうち「いずれ結婚するつもり」と回答した割合。結婚意欲は高いのに行動に移せていない人が多いのが現状です。', source:'国立社会保障・人口問題研究所「第16回出生動向基本調査」(2021)'}
+    ]
+  },
+  quiet_strategist: {
+    icon:'♟️', name:'静かなるストラテジスト',
+    summary:'論理的で計画性が高く、婚活を戦略的に進められるタイプ。分析力は抜群ですが、感情表現や自己開示に課題があります。スペックや条件の分析は得意でも「心の距離を縮める」段階で苦戦しやすいのが特徴です。',
+    strengths:[
+      '効率的に婚活を進め、時間やコストの無駄が少ない',
+      '自分と相手の条件を冷静に分析し、ミスマッチを減らせる',
+      '計画性があり、婚活のPDCAを回せる'
+    ],
+    improvements:[
+      '感情表現が控えめすぎて「興味がないのかな？」と誤解されやすい',
+      '相手を「スペック」で評価しすぎてしまう傾向がある',
+      '「条件マッチング」だけでは人の心は動かないことへの理解が必要'
+    ],
+    advice:[
+      'デートでは「楽しい」「嬉しい」「ありがとう」を意識的に言葉にしましょう。感情の言語化が最大の武器になります。',
+      '相手のプロフィールの「条件」ではなく「エピソード」に注目してみましょう。人柄が見えてきます。',
+      'メッセージでは事実だけでなく、自分の感情や感想を1文加えましょう。「〇〇に行きました。すごく楽しかったです！」のように。',
+      '月に1回は、条件外の相手にも会ってみましょう。想定外の化学反応が起きることがあります。'
+    ],
+    stats:[
+      {number:'45.2%', text:'婚活サービス利用者のうち「婚活サイト」を利用した割合（過去最高）。あなたのような戦略的なタイプにはデータ活用型の婚活が向いています。', source:'リクルートブライダル総研「婚活実態調査2024」'},
+      {number:'2005年以降上昇', text:'「異性とうまくつきあえない」の選択率が上昇傾向。コミュニケーションスキルの重要性は年々高まっています。戦略力に感情表現を加えれば、他の人に大きな差をつけられます。', source:'国立社会保障・人口問題研究所「第16回出生動向基本調査」(2021)'}
+    ]
+  },
+  steady_builder: {
+    icon:'🧱', name:'堅実なビルダー',
+    summary:'真面目で責任感が強く、着実にステップを踏むタイプ。婚活にも誠実に取り組みますが、自分を出すことに慎重で、関係構築のペースがゆっくりなのが特徴です。信頼感と安定感という大きな武器を持っています。',
+    strengths:[
+      '信頼感と安定感があり、結婚相手としての安心感がある',
+      '約束を守り、誠実に向き合う姿勢が相手に伝わる',
+      '長期的な視点で結婚生活を考えられる'
+    ],
+    improvements:[
+      '慎重すぎて、相手に「脈なし」と思われてしまうことがある',
+      '自分の魅力を言葉で伝えることが苦手',
+      '「完璧な準備ができてから」と行動を先送りしがち'
+    ],
+    advice:[
+      '2回目のデートでは、趣味や好きなことについて少し熱く語ってみましょう。あなたの人間味が伝わります。',
+      '相手への好意は言葉で伝えましょう。「今日は楽しかったです、また会いたいです」の一言が大きな違いを生みます。',
+      '「60%の準備でまず行動する」を心がけましょう。完璧を待つ間にチャンスは去ります。',
+      '自分の魅力を3つ書き出し、それをプロフィールや会話に意識的に盛り込みましょう。'
+    ],
+    stats:[
+      {number:'43.3% / 41.9%', text:'結婚の障害の第1位は「結婚資金」（男性43.3%、女性41.9%）。堅実な経済観念は婚活の大きなアドバンテージです。', source:'内閣府「結婚・家族形成に関する意識調査」'},
+      {number:'70.2%', text:'女性が結婚相手の条件として「家事・育児の能力や姿勢」を重視・考慮する割合（前回57.7%から大幅上昇）。誠実で家庭的なあなたの姿勢は、現代の婚活では非常に高く評価されます。', source:'国立社会保障・人口問題研究所「第16回出生動向基本調査」(2021)'}
+    ]
+  },
+  careful_analyst: {
+    icon:'🔍', name:'慎重なアナリスト',
+    summary:'思慮深く観察力が高いタイプ。人をよく見ていて本質を見抜く力がありますが、婚活に対して消極的で、自分の気持ちを表現することにも抵抗があります。「結婚したいけど、どうすればいいかわからない」という状態に陥りやすいのが特徴です。',
+    strengths:[
+      '人をよく観察し、本質を見抜く力がある',
+      '慎重ゆえに、パートナー選びで大きな失敗をしにくい',
+      '内面的な豊かさがあり、深い関係を築ける素養がある'
+    ],
+    improvements:[
+      '分析が行動の代わりになっている（考えすぎて動けない）',
+      '失敗を恐れすぎて、チャンスを逃しやすい',
+      '自分の魅力に気づいていない可能性が高い'
+    ],
+    advice:[
+      'まず「自分の好きなもの」を5つ書き出すところから始めましょう。自己理解が婚活の土台です。',
+      '信頼できる友人に「自分の良いところ」を3つ聞いてみましょう（ジョハリの窓の活用）。他者の目を通して自分の魅力を発見できます。',
+      '婚活の第一歩として、プロフィール作成だけ取り組んでみましょう。実際に利用しなくてもOKです。',
+      '「完璧でなくていい」を合言葉にしてください。婚活は練習と経験がものを言います。'
+    ],
+    stats:[
+      {number:'28.25% / 17.81%', text:'50歳時の未婚割合（生涯未婚率）は男性28.25%、女性17.81%と過去40年で急上昇。「いつかは」と思っている間に時間は過ぎます。', source:'総務省「国勢調査」(2020)'},
+      {number:'22.7%', text:'不妊の検査・治療を受けたことのある夫婦の割合（4.4組に1組）。年齢は婚活において重要なファクターです。分析力を「自分の行動計画」に向けましょう。', source:'国立社会保障・人口問題研究所「第16回出生動向基本調査」(2021)'}
+    ]
+  },
+  gentle_dreamer: {
+    icon:'☁️', name:'やさしいドリーマー',
+    summary:'穏やかで控えめ、自分のペースを大切にするタイプ。結婚への憧れはありますが、具体的な行動には移せていない状態です。あなたの穏やかさは長期的な関係では大きな強みになります。まずは小さな一歩を踏み出すことに集中しましょう。',
+    strengths:[
+      '穏やかで相手に安心感を与える雰囲気がある',
+      '自分の世界を大切にしており、独自の魅力がある',
+      '無理をしない姿勢は、長期的な関係では大きな強みになる'
+    ],
+    improvements:[
+      '婚活のスタートラインにまだ立てていない',
+      '「自分は結婚に向いていないのでは」と思い込みやすい',
+      '出会いの絶対数が少なすぎる状態'
+    ],
+    advice:[
+      '結婚のメリットを具体的にリスト化してみましょう。「なぜ結婚したいのか」を明確にすることがモチベーションになります。',
+      'まずは月1回、人と会う場に参加することを目標にしましょう。ハードルは低くてOKです。',
+      '一人で抱え込まず、婚活経験者や相談所のカウンセラーに話を聞いてもらいましょう。',
+      '小さな成功体験（プロフィール完成、初メッセージ送信）を積み重ねましょう。一歩一歩でOKです。'
+    ],
+    stats:[
+      {number:'53.1% / 65.6%', text:'結婚の利点として「自分の子どもや家族をもてる」を挙げる人が増加傾向（男性53.1%、女性65.6%）。あなたの穏やかなペースを活かした温かい家庭は十分に実現可能です。', source:'内閣府「結婚・家族形成に関する意識調査」'},
+      {number:'48.5万組', text:'令和6年の婚姻件数。毎年約50万組が結婚しています。あなたにも必ずチャンスはあります。まずは一歩を踏み出すことだけに集中しましょう。', source:'厚生労働省「人口動態統計」令和6年'}
+    ]
+  }
+};
+
+// ========== APP STATE ==========
+var currentQuestion = 0;
+var answers = [];
+
+// ========== SCORING ==========
+function calculateScores() {
+  var opennessTotal = 0, opennessCount = 0;
+  var agencyTotal = 0, agencyCount = 0;
+  for (var i = 0; i < answers.length; i++) {
+    var q = questions[i];
+    var opt = q.options[answers[i]];
+    if (opt.scores.openness !== undefined) { opennessTotal += opt.scores.openness; opennessCount++; }
+    if (opt.scores.agency !== undefined) { agencyTotal += opt.scores.agency; agencyCount++; }
+  }
+  var opennessNorm = Math.round(((opennessTotal - opennessCount) / (opennessCount * 3)) * 100);
+  var agencyNorm = Math.round(((agencyTotal - agencyCount) / (agencyCount * 3)) * 100);
+  return {
+    openness: Math.max(0, Math.min(100, opennessNorm)),
+    agency: Math.max(0, Math.min(100, agencyNorm))
+  };
+}
+
+function determineType(scores) {
+  var highOpen = scores.openness >= 50;
+  var highAgency = scores.agency >= 50;
+  var strong = scores.openness >= 70 || scores.openness <= 30 || scores.agency >= 70 || scores.agency <= 30;
+  if (highOpen && highAgency) return strong ? 'sun_navigator' : 'warm_connector';
+  if (highOpen && !highAgency) return strong ? 'passion_challenger' : 'gentle_romantic';
+  if (!highOpen && highAgency) return strong ? 'quiet_strategist' : 'steady_builder';
+  return strong ? 'careful_analyst' : 'gentle_dreamer';
+}
+
+// ========== UI ==========
+function showScreen(id) {
+  var screens = document.querySelectorAll('.screen');
+  for (var i = 0; i < screens.length; i++) screens[i].classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function renderQuestion() {
+  var q = questions[currentQuestion];
+  var container = document.getElementById('questionContainer');
+  document.getElementById('progressText').textContent = (currentQuestion + 1) + ' / ' + questions.length;
+  document.getElementById('progressFill').style.width = ((currentQuestion + 1) / questions.length * 100) + '%';
+  document.getElementById('backBtn').disabled = currentQuestion === 0;
+
+  var html = '<div class="question-container">';
+  html += '<div class="question-number">Q' + (currentQuestion + 1) + '</div>';
+  html += '<div class="question-text">' + q.text + '</div>';
+  html += '<div class="options">';
+  for (var i = 0; i < q.options.length; i++) {
+    var sel = answers[currentQuestion] === i ? ' selected' : '';
+    html += '<button class="option-btn' + sel + '" data-index="' + i + '">' + q.options[i].text + '</button>';
+  }
+  html += '</div></div>';
+  container.innerHTML = html;
+
+  var btns = container.querySelectorAll('.option-btn');
+  for (var j = 0; j < btns.length; j++) {
+    btns[j].addEventListener('click', function() {
+      selectAnswer(parseInt(this.getAttribute('data-index')));
+    });
+  }
+}
+
+function selectAnswer(index) {
+  answers[currentQuestion] = index;
+  var btns = document.querySelectorAll('.option-btn');
+  for (var i = 0; i < btns.length; i++) btns[i].classList.remove('selected');
+  document.querySelector('.option-btn[data-index="' + index + '"]').classList.add('selected');
+
+  setTimeout(function() {
+    if (currentQuestion < questions.length - 1) {
+      currentQuestion++;
+      renderQuestion();
+    } else {
+      showLoading();
+    }
+  }, 300);
+}
+
+function showLoading() {
+  showScreen('loading');
+  var texts = ['あなたの回答を分析中...','開放性スコアを算出中...','主体性スコアを算出中...','婚活タイプを判定中...','アドバイスを生成中...'];
+  var i = 0;
+  var el = document.getElementById('loadingText');
+  var interval = setInterval(function() {
+    i++;
+    if (i < texts.length) el.textContent = texts[i];
+  }, 600);
+  setTimeout(function() {
+    clearInterval(interval);
+    showResult();
+  }, 3000);
+}
+
+function showResult() {
+  var scores = calculateScores();
+  var typeKey = determineType(scores);
+  var type = resultTypes[typeKey];
+
+  document.getElementById('resultIcon').textContent = type.icon;
+  document.getElementById('resultTypeName').textContent = type.name;
+  document.getElementById('resultSummary').textContent = type.summary;
+  document.getElementById('opennessScore').textContent = scores.openness + '点';
+  document.getElementById('agencyScore').textContent = scores.agency + '点';
+
+  showScreen('result');
+
+  setTimeout(function() {
+    document.getElementById('opennessFill').style.width = scores.openness + '%';
+    document.getElementById('agencyFill').style.width = scores.agency + '%';
+  }, 100);
+
+  var html = '';
+  // Strengths
+  html += '<div class="result-section"><div class="section-title"><span class="section-title-icon">💪</span>婚活の強み</div><ul class="result-list strengths">';
+  for (var i = 0; i < type.strengths.length; i++) html += '<li>' + type.strengths[i] + '</li>';
+  html += '</ul></div>';
+  // Improvements
+  html += '<div class="result-section"><div class="section-title"><span class="section-title-icon">🔑</span>改善ポイント</div><ul class="result-list improvements">';
+  for (var i = 0; i < type.improvements.length; i++) html += '<li>' + type.improvements[i] + '</li>';
+  html += '</ul></div>';
+  // Advice
+  html += '<div class="result-section"><div class="section-title"><span class="section-title-icon">📋</span>具体的アドバイス</div><ul class="advice-list">';
+  for (var i = 0; i < type.advice.length; i++) html += '<li>' + type.advice[i] + '</li>';
+  html += '</ul></div>';
+  // Stats
+  html += '<div class="result-section"><div class="section-title"><span class="section-title-icon">📊</span>データで見る婚活</div>';
+  for (var i = 0; i < type.stats.length; i++) {
+    var s = type.stats[i];
+    html += '<div class="stat-box"><span class="stat-number">' + s.number + '</span>' + s.text + '<span class="stat-source">出典: ' + s.source + '</span></div>';
+  }
+  html += '</div>';
+
+  document.getElementById('resultSections').innerHTML = html;
+  setupShare(type);
+}
+
+function setupShare(type) {
+  var shareText = '【婚活タイプ診断】私の婚活タイプは「' + type.icon + ' ' + type.name + '」でした！心理学に基づく20問であなたの婚活スタイルがわかります。';
+  var shareUrl = location.href.split('?')[0].split('#')[0];
+
+  document.getElementById('shareTwitter').onclick = function() {
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(shareUrl), '_blank', 'width=550,height=420');
+  };
+  document.getElementById('shareLine').onclick = function() {
+    window.open('https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent(shareText), '_blank', 'width=550,height=420');
+  };
+  document.getElementById('shareCopy').onclick = function() {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText + '\n' + shareUrl).then(function() { showToast('リンクをコピーしました！'); });
+    }
+  };
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2500);
+}
+
+function resetQuiz() {
+  currentQuestion = 0;
+  answers = [];
+  document.getElementById('opennessFill').style.width = '0%';
+  document.getElementById('agencyFill').style.width = '0%';
+  showScreen('landing');
+}
+
+// ========== INIT ==========
+document.getElementById('startBtn').addEventListener('click', function() {
+  showScreen('quiz');
+  renderQuestion();
+});
+document.getElementById('backBtn').addEventListener('click', function() {
+  if (currentQuestion > 0) { currentQuestion--; renderQuestion(); }
+});
+document.getElementById('retryBtn').addEventListener('click', resetQuiz);
+</script>
+</body>
+</html>
